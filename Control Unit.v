@@ -43,8 +43,8 @@ module Control_Unit(Instruction,Clk,Function , RegDst, Branch, MemRead, MemtoReg
 	ALU_AND=0,
 	ALU_OR= 1,
 	ALU_SLT=7,
-	ALU_NOR=12;
-	
+	ALU_NOR=12,
+	ALU_SLL=3;
 	parameter [5:0]	 /*OPCODE parameter section (This is the main parameter to be compared with Instruction)
 	will later on be used in switch cases*/
 	RType  =0,
