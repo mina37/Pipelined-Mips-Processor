@@ -1,0 +1,1 @@
+ -erf "E:\CSE\Pipelined-Mips-Processor\Hazard\compile\Hazard.erf" -work Hazard -lc c:/My_Designs/CSE/library.cfg -fl E:/CSE/Pipelined-Mips-Processor/Hazard/projlib.cfg -o E:/CSE/Pipelined-Mips-Processor/Hazard/compile -l "Hazard" -sve   -O2
