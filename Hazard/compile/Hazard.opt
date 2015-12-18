@@ -1,0 +1,1 @@
+ -u "C:\Aldec\Active-HDL 9.1\bin/systf.dll" -v2k5  "E:\CSE\Pipelined-Mips-Processor\Hazard\src\Hazard.v"  -cs  -g 5  -r -li "E:\CSE\Pipelined-Mips-Processor\Hazard\compile\Hazard.epr" -p "E:\CSE\Pipelined-Mips-Processor\Hazard" 
