@@ -22,13 +22,15 @@
 //{{ Section below this comment is automatically maintained
 //   and may be overwritten
 //{module {IF_ID}}
-module IFID (in,out,clk);
+module IFID (PC_in,PC_out,instruction_in,instruction_out,clk);
 	wire clk;
-	input [63:0] in;
+	input [31:0] PC_in;
+	input [31:0] instruction_in;
 	input clk;
-	output [63:0] out;
-	wire [63:0] in;
-	reg [63:0] out;
+	output [31:0] PC_out;
+	output [31:0] instruction_out;
+	reg [31:0] PC_out;
+	reg [31:0] instruction_out;
 	
 	always @(posedge clk)
 		begin
