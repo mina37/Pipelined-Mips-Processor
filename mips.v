@@ -1,43 +1,31 @@
-//-----------------------------------------------------------------------------
-//
-// Title       : mips
-// Design      : mips pilining
-// Author      : 
-// Company     : 
-//
-//-----------------------------------------------------------------------------
-//
-// File        : c:\My_Designs\mips\mips pilining\src\mips.v
-// Generated   : Thu Dec 24 13:53:46 2015
-// From        : interface description file
-// By          : Itf2Vhdl ver. 1.22
-//
-//-----------------------------------------------------------------------------
-//
-// Description : 
-//
-//-----------------------------------------------------------------------------
-`timescale 1 ns / 1 ps
+module MIPS();
+	
+reg [0:63] IF_ID;
 
-//{{ Section below this comment is automatically maintained
-//   and may be overwritten
-//{module {mips}}
-module mips ();
-	wire address[31:0],instruction[31:0];
-	reg clk;
-	instructionsMemory instruction_memory(address,clk,instuction);
-	initial
-		begin
-			clk=1;
-		end
-	always
-		begin
-			#5
-			clk=~clk;
-		end
-			
-//}} End of automatically maintained section
+reg [31:0] Address,
+Instruction,
+Address_Plus1;
 
-// -- Enter your statements here -- //
+reg clk;
+
+mux Register_Dest();
+mux Jump_And_Link_Read();
+mux ALU_Source();
+mux Memory_To_Register();
+mux Jump_And_Link_Write();
+mux PC_Source();
+mux Jump();
+
+
+Plus_One PC_Plus_Four(Address,Address_Plus1,clk);
+
+instructionsMemory Instruction_Memory(Address,clk,Instruction);
+
+Registers Register_File(Instruction[25:21],Instruction[20:16],Write_Reg/**/,Write_Dat/**/,Read_Dat1,Read_Dat2,Reg_Write,clk);
+
+always #5 clk=~clk;
+always @(posedge clk)
+	IF_ID={Instruction,Address_Plus1}; 
+initial Address=-1;
 
 endmodule
