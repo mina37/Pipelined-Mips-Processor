@@ -22,7 +22,7 @@
 //{{ Section below this comment is automatically maintained
 //   and may be overwritten
 //{module {pc_adder}}
-module Plus_Four(In1,Out1,clk);
+module Plus_one(In1,Out1,clk);
  
  input [31:0] In1;
  input clk;
@@ -31,5 +31,5 @@ module Plus_Four(In1,Out1,clk);
  reg [31:0] Out1;
  
  always @ (posedge clk)
-  Out1=In1+4;
+  Out1=In1+1;
 endmodule
