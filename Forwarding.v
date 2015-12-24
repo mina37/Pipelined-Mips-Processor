@@ -29,7 +29,6 @@ module forwarding (IdExRs,IdExRt,ExMemWb,MemWbWb,ExMemRd,MemWbRd,FwdA,FwdB);
 	input		MemWbWb;////
 	input [4:0]	ExMemRd;
 	input [4:0]	MemWbRd;
-	input 		clk;
 	
 	output reg [1:0] FwdA;
 	output reg [1:0] FwdB;
