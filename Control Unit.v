@@ -58,7 +58,7 @@ module Control_Unit(Instruction,Clk,Function , RegDst, Branch, MemRead, MemtoReg
 	BEQ	 =4,
 	JAL	 =3,
 	JR	 =RType,
-	SLT	 =RType
+	SLT	 =RType,
 	////////////////////////Function/////////////////////////////
 	/*Function parameter section, second most important parameter to be compared with,
 	will be later on used in switch cases with Function input*/

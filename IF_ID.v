@@ -35,7 +35,7 @@ module IFID (PC_in,PC_out,instruction_in,instruction_out,clk);
 	always @(posedge clk)
 		begin
 			PC_out <= PC_in;
-			instruction_out<=intruction_in;
+			instruction_out<=instruction_in;
 		end
 //}} End of automatically maintained section
 

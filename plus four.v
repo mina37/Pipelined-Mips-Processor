@@ -8,4 +8,5 @@ module Plus_Four(In1,Out1,clk);
 	
 	always @ (posedge clk)
 		Out1=In1+4;
-endmodule	
+endmodule
+
