@@ -30,8 +30,18 @@ module forwarding (IdExRs,IdExRt,ExMemWb,MemWbWb,ExMemRd,MemWbRd,FwdA,FwdB);
 	input [4:0]	ExMemRd;
 	input [4:0]	MemWbRd;
 	
+	//output FwdA0;
+//	output FwdA1;
+//	output FwdB0;
+//	output FwdB1;
+	
 	output reg [1:0] FwdA;
 	output reg [1:0] FwdB;
+	
+	//assign FwdA0 = FwdA[0];
+//	assign FwdA1 = FwdA[1];
+//	assign FwdB0 = FwdB[0];
+//	assign FwdB1 = FwdB[1];
 	
 	
 	always @(IdExRs or IdExRt or ExMemWb or MemWbWb or ExMemRd or MemWbRd)//(posedge clk)//@(IdExRs[0] or IdExRs[1] or IdExRs[2] or IdExRs[3] or IdExRs[4] or IdExRt[0] or IdExRt[1] or IdExRt[2] or IdExRt[3] or IdExRt[4] or ExMemWb or MemWbWb or ExMemRd[0] or ExMemRd[1] or ExMemRd[2] or ExMemRd[3] or ExMemRd[4] or MemWbRd[0] or MemWbRd[1] or MemWbRd[2] or MemWbRd[3] or MemWbRd[4])//@(edge IdExRs or edge IdExRt or edge ExMemWb or edge MemWbWb or edge ExMemRd or edge MemWbRd) //IdExRs or IdExRt or ExMemWb or MemWbWb or ExMemRd or MemWbRd)

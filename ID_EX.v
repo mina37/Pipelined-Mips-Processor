@@ -49,8 +49,6 @@ module ID_EX (
 	output reg [1:0] ex_ALUop_out,
 	input ex_ALUsrc_in,
 	output reg ex_ALUsrc_out,
-	input branch_in,
-	output reg branch_out,
 	input clk);
 	
 	always @(posedge clk)
@@ -68,7 +66,6 @@ module ID_EX (
 			jump_out<=jump_in;
 			ex_ALUop_out<=ex_ALUop_in;
 			ex_ALUsrc_out<=ex_ALUsrc_in;
-			branch_out<=branch_in;
 		end
 	
 //}} End of automatically maintained section

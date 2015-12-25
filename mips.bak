@@ -1,0 +1,23 @@
+SCHM0104
+HEADER
+{
+  VARIABLES
+  {
+    #LANGUAGE="VERILOG"
+    #MODULE="mips"
+    AUTHOR="Unknown"
+    COMPANY="Unknown"
+    CREATIONDATE="12/25/2015"
+    TITLE="mips"
+  }
+}
+PAGE ""
+{
+  PAGEHEADER 
+  {
+    PAGESIZE (2200,1700)
+  }
+  BODY
+  {
+  }
+}

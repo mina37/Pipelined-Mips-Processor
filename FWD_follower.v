@@ -1,14 +1,14 @@
 //-----------------------------------------------------------------------------
 //
-// Title       : mux_32_4_1
+// Title       : FWD_follower
 // Design      : pipline
 // Author      : 
 // Company     : 
 //
 //-----------------------------------------------------------------------------
 //
-// File        : c:\My_Designs\mips\pipline\src\mux_32_4_1.v
-// Generated   : Fri Dec 25 10:19:27 2015
+// File        : c:\My_Designs\mips\pipline\src\FWD_follower.v
+// Generated   : Fri Dec 25 13:23:34 2015
 // From        : interface description file
 // By          : Itf2Vhdl ver. 1.22
 //
@@ -21,15 +21,16 @@
 
 //{{ Section below this comment is automatically maintained
 //   and may be overwritten
-//{module {mux_32_4_1}}
-module mux_32_4_1 (
-	input [31:0] in1,
-	input [31:0] in2,
-	output [31:0] out,
-	input sel
+//{module {FWD_follower}}
+module FWD_follower (
+	input [1:0] in,
+	output out1,
+	output out2
 	);
+	assign out1=in[0];
+	assign out2=in[1];
 //}} End of automatically maintained section
-	assign out = (sel) ? in2 : in1;
+
 // -- Enter your statements here -- //
 
 endmodule

@@ -1,14 +1,14 @@
 //-----------------------------------------------------------------------------
 //
-// Title       : mux_32_4_1
+// Title       : ID_EX_op
 // Design      : pipline
 // Author      : 
 // Company     : 
 //
 //-----------------------------------------------------------------------------
 //
-// File        : c:\My_Designs\mips\pipline\src\mux_32_4_1.v
-// Generated   : Fri Dec 25 10:19:27 2015
+// File        : c:\My_Designs\mips\pipline\src\ID_EX_op.v
+// Generated   : Fri Dec 25 14:00:32 2015
 // From        : interface description file
 // By          : Itf2Vhdl ver. 1.22
 //
@@ -21,15 +21,19 @@
 
 //{{ Section below this comment is automatically maintained
 //   and may be overwritten
-//{module {mux_32_4_1}}
-module mux_32_4_1 (
-	input [31:0] in1,
-	input [31:0] in2,
-	output [31:0] out,
-	input sel
-	);
+//{module {ID_EX_op}}
+module ID_EX_op (
+	input [3:0] in,
+	output reg [3:0] out,
+	input clk
+	);		 
+	
+	always @(posedge clk)
+		begin
+			out<=in;
+		end
 //}} End of automatically maintained section
-	assign out = (sel) ? in2 : in1;
+
 // -- Enter your statements here -- //
 
 endmodule
