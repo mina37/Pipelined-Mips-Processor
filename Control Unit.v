@@ -1,4 +1,4 @@
-module Control_Unit(Instruction,Clk,Function , RegDst, Branch, MemRead, MemtoReg, ALUOp, MemWrite, ALUSrc, RegWrite);
+module Control_Unit(Instruction,Clk,Function , RegDst, Branch, MemRead, MemtoReg, ALUOp, MemWrite, ALUSrc, RegWrite,Jump_And_Link,JR,ALUSrc2);
 	input 
 	Clk;
 	
@@ -13,7 +13,11 @@ module Control_Unit(Instruction,Clk,Function , RegDst, Branch, MemRead, MemtoReg
 	MemtoReg,
 	MemWrite,
 	ALUSrc,
-	RegWrite;
+	RegWrite,
+	Jump_And_Link,
+	JR,
+	ALUSrc2;
+	
 	
 	output [3:0]
 	ALUOp; /*Output to the ALU Directly (ALU control unit is already handled)*/
@@ -29,7 +33,10 @@ module Control_Unit(Instruction,Clk,Function , RegDst, Branch, MemRead, MemtoReg
 	MemtoReg,
 	MemWrite,
 	ALUSrc,
-	RegWrite;
+	RegWrite,
+	Jump_And_Link,
+	JR,
+	ALUSrc2;
 	
 	reg [3:0] /*TO - BE - CHECKED - IF - CORRECT*/
 	ALUOp;
@@ -57,8 +64,8 @@ module Control_Unit(Instruction,Clk,Function , RegDst, Branch, MemRead, MemtoReg
 	NOR	 =RType,
 	BEQ	 =4,
 	JAL	 =3,
-	JR	 =RType,
-	SLT	 =RType
+	//JR	 =RType,
+	SLT	 =RType,
 	////////////////////////Function/////////////////////////////
 	/*Function parameter section, second most important parameter to be compared with,
 	will be later on used in switch cases with Function input*/
@@ -81,19 +88,27 @@ module Control_Unit(Instruction,Clk,Function , RegDst, Branch, MemRead, MemtoReg
 					MemtoReg    <=	0      ;
 					MemWrite    <=	0      ;
 					ALUSrc      <=	0      ;
+					ALUSrc2 <=     0        ;
 					RegWrite    <=	1      ;
-					
+					Jump_And_Link <=0;
 					case (Function)/*Switch case for the function of the R-type instructions*/
-						FUNCTION_ADD: 
+						FUNCTION_ADD:begin 
 							ALUOp <= ALU_ADD ;
-						FUNCTION_AND: 
+							JR<=0; end
+						FUNCTION_AND:begin 
 							ALUOp <= ALU_AND ;
-						FUNCTION_SLT: 
+							JR<=0; end
+						FUNCTION_SLT:begin 
 							ALUOp <= ALU_SLT ;
-						FUNCTION_NOR: 
+							JR<=0; end
+						FUNCTION_NOR:begin 
 							ALUOp <= ALU_NOR ;
-						FUNCTION_SLL: 
-							ALUOp <= ALU_SLL ;
+							JR<=0; end
+						FUNCTION_SLL:begin 
+						ALUOp <= ALU_SLL ;
+						JR<=0; end
+						FUNCTION_JR:
+							JR <=1;
 					endcase	 
 					
 				end
@@ -104,8 +119,11 @@ module Control_Unit(Instruction,Clk,Function , RegDst, Branch, MemRead, MemtoReg
 					MemtoReg    <=	1      ;
 					MemWrite    <=	0      ;
 					ALUSrc      <=	1      ;
+					ALUSrc2 <=     0        ;
 					RegWrite    <=	1      ;
-					ALUOp       <=  ALU_ADD ;
+					ALUOp       <=  ALU_ADD;
+					Jump_And_Link <=0;
+					JR <=0;
 				end
 				SW: begin /*Store Word*/
 					RegDst      <=	1'bx      ;
@@ -114,8 +132,11 @@ module Control_Unit(Instruction,Clk,Function , RegDst, Branch, MemRead, MemtoReg
 					MemtoReg    <=	1'bx      ;
 					MemWrite    <=	1      ;
 					ALUSrc      <=	1      ;
+					ALUSrc2 <=      0       ;
 					RegWrite    <=	0      ;
 					ALUOp       <=  ALU_ADD ;
+					Jump_And_Link <=0;
+					JR <=0;
 				end
 				ANDI: begin/*And with Immediate*/
 					RegDst      <=	0      ;
@@ -123,9 +144,12 @@ module Control_Unit(Instruction,Clk,Function , RegDst, Branch, MemRead, MemtoReg
 					MemRead     <=	0      ;
 					MemtoReg    <=	0      ;
 					MemWrite    <=	0      ;
-					ALUSrc      <=	1      ;
+					ALUSrc      <=	1'bx      ;
+					ALUSrc2 <=       1      ;
 					RegWrite    <=	1      ;
 					ALUOp       <=  ALU_AND;
+					Jump_And_Link <=0;
+					JR <=0;
 				end
 				ADDI: begin/*Add With Immediate*/
 					RegDst      <=	 0     ;
@@ -134,8 +158,11 @@ module Control_Unit(Instruction,Clk,Function , RegDst, Branch, MemRead, MemtoReg
 					MemtoReg    <=	 0     ;
 					MemWrite    <=	 0     ;
 					ALUSrc      <=	 1     ;
+					ALUSrc2 <=       0      ;
 					RegWrite    <=	 1     ;
 					ALUOp       <=  ALU_ADD;
+					Jump_And_Link <=0;
+					JR <=0;
 				end					
 				BEQ: begin/*Branch if equal*/
 					RegDst      <=1'bx     ;
@@ -144,19 +171,25 @@ module Control_Unit(Instruction,Clk,Function , RegDst, Branch, MemRead, MemtoReg
 					MemtoReg    <=1'bx     ;
 					MemWrite    <=	 0     ;
 					ALUSrc      <=	 0     ;
+					ALUSrc2 <=       0      ;
 					RegWrite    <=	 0     ;
 					ALUOp       <=  ALU_SUB;
+					Jump_And_Link <=0;
+					JR <=0;
 				end	
-			/*	JAL: begin   //TO - BE - CHECKED - IF - CORRECT
-					RegDst      <=	      ;
-					Branch      <=	      ;
-					MemRead     <=	      ;
-					MemtoReg    <=	      ;
-					MemWrite    <=	      ;
-					ALUSrc      <=	      ;
-					RegWrite    <=	      ;
-					ALUOp       <=   ;
-				end	 */
+				JAL: begin   //TO - BE - CHECKED - IF - CORRECT
+					RegDst      <=	  2    ;
+					Branch      <=	  0   ;
+					MemRead     <=	  0   ;
+					MemtoReg    <=	  2   ;
+					MemWrite    <=	  0   ;
+					ALUSrc      <=	  1'bx;
+					ALUSrc2 <=        0     ;
+					RegWrite    <=	  1   ;
+					ALUOp       <=  1'bx;
+					Jump_And_Link <=1;
+					JR <=0;
+				end	 
 			endcase
 		end
 	endmodule
